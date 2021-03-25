@@ -1,0 +1,38 @@
+11)Вывести пассажиров с самым длинным именем
+Поля в результирующей таблице: name
+
+SELECT name FROM Passenger ORDER BY LENGTH(name)  DESC limit 1;
+
+
+12) Вывести id и количество пассажиров для всех прошедших полётов
+Поля в результирующей таблице:
+trip
+count
+Используйте конструкцию "as count" для агрегатной функции подсчета количества пассажиров. 
+Это необходимо для корректной проверки.
+
+SELECT trip , COUNT(Pass_in_trip.trip) as count FROM Pass_in_trip INNER JOIN Passenger ON Pass_in_trip.passenger = Passenger.id 
+GROUP BY trip
+
+
+13)Вывести имена людей, у которых есть полный тёзка среди пассажиров
+Поля в результирующей таблице:
+name
+
+SELECT name FROM Passenger GROUP BY name HAVING COUNT(name) >1;
+
+
+14) В какие города летал Bruce Willis
+Поля в результирующей таблице:
+town_to
+
+
+SELECT town_to FROM Trip INNER JOIN Pass_in_trip ON Trip.id = Pass_in_trip.trip 
+INNER JOIN Passenger ON Passenger.id = Pass_in_trip.passenger WHERE Passenger.name = "Bruce Willis"
+
+
+15) Во сколько Стив Мартин (Steve Martin) прилетел в Лондон (London)
+Поля в результирующей таблице: time_in
+
+SELECT time_in FROM Trip INNER JOIN Pass_in_trip ON Trip.id = Pass_in_trip.trip 
+INNER JOIN Passenger ON Passenger.id = Pass_in_trip.passenger WHERE Passenger.name = "Steve Martin" AND Trip.town_to = "London";
