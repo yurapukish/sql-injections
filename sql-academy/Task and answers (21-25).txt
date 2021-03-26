@@ -1,0 +1,48 @@
+21) Identify products that have been purchased more than 1 time
+Fields in the resulting table:
+good_name
+
+SELECT good_name FROM Goods 
+INNER JOIN Payments ON Payments.good = Goods.good_id
+GROUP BY good_name HAVING COUNT(good_name) >1
+
+
+22)    Print the names of all mothers
+Fields in the resulting table:
+member_name
+
+SELECT member_name FROM FamilyMembers WHERE status ="mother"
+
+
+
+
+
+23)Найдите самый дорогой деликатес (delicacies) и выведите его стоимость
+
+SELECT 
+good_name, unit_price FROM Payments 
+INNER JOIN Goods ON good = good_id
+INNER JOIN GoodTypes ON good_type_id  = type
+WHERE GoodTypes.good_type_name = "delicacies" LIMIT 1
+
+24) Определить кто и сколько потратил в июне 2005
+Поля в результирующей таблице:
+member_name
+costs
+
+
+SELECT member_name, SUM(amount*unit_price) as costs  FROM Payments
+INNER JOIN FamilyMembers ON  family_member = member_id WHERE YEAR(date) = 2005 AND MONTH(date) = 6
+GROUP BY family_member
+
+
+25) Определить, какие товары имеются в таблице Goods, но не покупались в течение 2005 года
+Поля в результирующей таблице:
+good_name
+
+
+SELECT good_name FROM Payments
+RIGHT JOIN  Goods g  ON good = g.good_id AND YEAR(date) = 2005
+WHERE  Payments.good IS NULL
+
+ 
