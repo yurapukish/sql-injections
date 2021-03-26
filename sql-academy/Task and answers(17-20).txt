@@ -1,0 +1,47 @@
+17) Определить, сколько потратил в 2005 году каждый из членов семьи
+Поля в результирующей таблице:
+member_name
+status
+costs
+
+
+SELECT member_name, status, SUM(unit_price*amount) as costs  
+FROM Payments 
+INNER JOIN FamilyMembers ON family_member = member_id
+WHERE YEAR(date) = 2005 
+GROUP BY family_member
+
+
+18) Узнать, кто старше всех в семьe
+Поля в результирующей таблице:
+member_name
+
+
+SELECT member_name FROM FamilyMembers ORDER BY birthday ASC LIMIT 1 
+
+   
+19) Определить, кто из членов семьи покупал картошку (potato)
+Поля в результирующей таблице:
+status
+
+
+SELECT Distinct status FROM FamilyMembers 
+INNER JOIN Payments ON member_id = family_member 
+INNER JOIN Goods ON good = good_id WHERE  good_name = "potato"
+
+20)  Сколько и кто из семьи потратил на развлечения (entertainment). Вывести статус в семье, имя, сумму
+Поля в результирующей таблице:
+status
+member_name
+costs
+Используйте конструкцию "as costs" для отображения затраченной суммы членом семьи. Это необходимо для корректной проверки.
+
+
+SELECT status, member_name, amount*unit_price as costs FROM FamilyMembers
+JOIN Payments
+ON FamilyMembers.member_id = Payments.family_member
+JOIN Goods
+ON Goods.good_id = Payments.good
+JOIN GoodTypes
+ON Goods.type = GoodTypes.good_type_id
+WHERE good_type_name = "entertainment"
