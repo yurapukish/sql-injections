@@ -23,3 +23,6 @@ SELECT name FROM Passenger WHERE  name LIKE "%man";
 Используйте конструкцию "as count" для агрегатной функции подсчета количества рейсов. 
 Это необходимо для корректной проверки.
 SELECT COUNT(plane) as count  FROM Trip WHERE  plane = "TU-134";
+
+
+Thank
