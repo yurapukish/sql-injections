@@ -1,0 +1,43 @@
+26) Определить группы товаров, которые не приобретались в 2005 году
+
+SELECT  good_type_name  FROM Payments
+INNER JOIN Goods ON good = good_id AND YEAR(date) = 2005
+RIGHT JOIN GoodTypes ON type= good_type_id  
+WHERE type is Null 
+
+27) Узнать, 
+сколько потрачено на каждую из групп товаров в 2005 году. Вывести название группы и сумму
+
+
+SELECT good_type_name, SUM(amount*unit_price) as costs   FROM Payments 
+INNER JOIN Goods ON good = good_id AND YEAR(date) = 2005 
+INNER JOIN GoodTypes ON good_type_id = type
+GROUP BY good_type_name
+
+28) Сколько рейсов совершили авиакомпании с Ростова (Rostov) в Москву (Moscow) ?
+Поля в результирующей таблице:
+count(*)
+Используйте конструкцию "as count" для агрегатной функции подсчета количества рейсов. 
+Это необходимо для корректной проверки.
+
+SELECT count(*) as count FROM Trip
+WHERE town_from = "Rostov" AND town_to ="Moscow"
+
+29)  Выведите имена пассажиров улетевших в Москву (Moscow) на самолете TU-134
+Поля в результирующей таблице:
+name
+
+
+SELECT DISTINCT  name FROM Trip t
+INNER JOIN Pass_in_trip p ON t.id = p.trip
+INNER JOIN Passenger s ON p.passenger = s.id
+WHERE town_to ="Moscow" AND plane = "TU-134"
+
+30) Выведите нагруженность (число пассажиров) каждого рейса (trip). Результат вывести в отсортированном виде по убыванию нагруженности.
+
+
+
+SELECT trip, COUNT(passenger) as count FROM Pass_in_trip
+GROUP BY trip 
+Order BY count DESC 
+

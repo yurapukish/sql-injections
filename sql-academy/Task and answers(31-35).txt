@@ -1,0 +1,38 @@
+31) Вывести всех членов семьи с фамилией Quincey.
+Поля в результирующей таблице:
+*
+
+SELECT * FROM FamilyMembers
+WHERE member_name LIKE "%Quincey"
+
+32) 
+Вывести средний возраст людей (в годах), хранящихся в базе данных. Результат округлите до целого в меньшую сторону.
+Поля в результирующей таблице:
+age
+
+
+SELECT ROUND(AVG(yeaR(CURRENT_DATE()) - YEAR(birthday))) - 1 AS age FROM FamilyMembers
+
+
+33) Найдите среднюю стоимость икры. В базе данных хранятся данные о покупках красной (red caviar) и черной икры (black caviar).
+Поля в результирующей таблице:
+cost
+
+SELECT AVG(unit_price) as cost FROM Payments
+INNER JOIN Goods ON good = good_id
+WHERE good_name = "red caviar" OR good_name = "black caviar"
+
+34) Сколько всего 10-ых классов
+Поля в результирующей таблице:
+count
+
+SELECT count(*) as count FROM Class
+WHERE name LIKE "%10%"
+
+
+35) Сколько различных кабинетов школы использовались 2.09.2019 в образовательных целях ?
+Поля в результирующей таблице:
+count
+
+SELECT COUNT(DISTINCT classroom) as count  FROM Schedule
+WHERE date = "2019-09-02"
