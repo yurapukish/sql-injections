@@ -1,0 +1,9 @@
+ 16) Вывести отсортированный по количеству перелетов (по убыванию) и имени (по возрастанию) список пассажиров, совершивших хотя бы 1 полет.
+Поля в результирующей таблице:
+name, count
+Используйте конструкцию "as count" для агрегатной функции подсчета количества перелетов. Это необходимо для корректной проверки.
+
+SELECT p.name, COUNT(passenger) as count  FROM Pass_in_trip
+INNER JOIN Passenger p ON passenger = p.id
+GROUP BY Pass_in_trip.passenger HAVING COUNT(passenger) > 0  
+ORDER BY count DESC, p.name ASC   
