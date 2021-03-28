@@ -1,0 +1,35 @@
+36)Выведите информацию об обучающихся живущих на улице Пушкина (ul. Pushkina)?
+
+SELECT * FROM Student
+WHERE address like "ul. Pushkina%"
+
+37) Сколько лет самому молодому обучающемуся ?
+Поля в результирующей таблице:
+year
+
+
+SELECT YEAR(CURRENT_date()) - YEAR(birthday) - 1 as year  FROM Student
+ORDER BY birthday DESC  LIMIT 1
+
+
+38) Сколько Анн (Anna) учится в школе ?
+Поля в результирующей таблице:
+count
+
+SELECT COUNT(*) as count  FROM Student
+WHERE first_name like "Anna"
+
+
+39) Сколько обучающихся в 10 B классе ?
+
+SELECT COUNT(student) as count FROM Student_in_class
+INNER JOIN Class ON Class.id = Student_in_class.class
+WHERE Class.name = "10"
+
+40) Выведите название предметов, которые преподает Ромашкин П.П. (Romashkin P.P.) ?
+
+
+SELECT Subject.name as subjects FROM Schedule s
+INNER JOIN Teacher t ON s.teacher = t.id
+INNER JOIN Subject ON s.subject = Subject.id
+WHERE t.last_name = "Romashkin"
