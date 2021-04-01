@@ -1,0 +1,34 @@
+51) Добавьте товар с именем "Cheese" и типом "food" в список товаров (Goods).
+В качестве первичного ключа (good_id) укажите количество записей в таблице + 1.
+
+
+
+INSERT INTO Goods SELECT COUNT(*) + 1, "Cheese", 2 FROM Goods;
+
+
+
+52) Добавьте в список типов товаров (GoodTypes) новый тип "auto".
+В качестве первичного ключа (good_type_id) укажите количество записей в таблице + 1.
+
+
+INSERT INTO GoodTypes SELECT COUNT(*) + 1, "auto" FROM GoodTypes;
+
+53) Измените имя "Andie Quincey" на новое "Andie Anthony".
+
+
+Update FamilyMembers
+SET member_name = "Andie Anthony"
+WHERE member_name = "Andie Quincey"
+
+
+54)Удалить всех членов семьи с фамилией "Quincey".
+
+DELETE FROM FamilyMembers 
+WHERE member_name like "%_Quincey"
+
+
+
+55) Удалить компании, совершившие наименьшее количество рейсов
+DELETE FROM Company WHERE  Company.id in (
+SELECT * FROM (SELECT company FROM Trip GROUP BY company LIMIT 3) as result
+)

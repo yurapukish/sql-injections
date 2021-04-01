@@ -1,0 +1,39 @@
+41) Во сколько начинается 4-ый учебный предмет по расписанию ?
+Поля в результирующей таблице:
+start_pair
+
+SELECT start_pair FROM Timepair
+WHERE id = 4
+
+42) Сколько времени обучающийся будет находиться в школе, учась со 2-го по 4-ый уч. предмет ?
+SELECT TIMEDIFF((SELECT end_pair FROM Timepair WHERE id = 4),
+ (SELECT start_pair FROM Timepair WHERE id = 2)) as time
+
+43) Выведите фамилии преподавателей, которые ведут физическую культуру (Physical Culture). Остортируйте преподавателей по фамилии.
+Поля в результирующей таблице:
+last_name
+
+SELECT Teacher.last_name FROM Schedule
+INNER JOIN Teacher ON teacher = Teacher.id
+INNER JOIN Subject ON Subject.id= Schedule.subject
+WHERE Subject.name = "Physical Culture" 
+ORDER BY last_name 
+
+
+44) Найдите максимальный возраст (колич. лет) среди обучающихся 10 классов ?
+Поля в результирующей таблице:
+max_year
+
+
+SELECT YEAR(current_date()) - YEAR(birthday) as max_year  FROM Student_in_class s
+INNER JOIN Class c ON c.id = s.class
+INNER JOIN Student ss ON ss.id = s.student
+WHERE c.name like "%10%" 
+ORDER BY birthday limit 1
+
+45) Какой(ие) кабинет(ы) пользуются самым большим спросом?
+
+
+SELECT classroom FROM Schedule
+GROUP BY classroom
+ORDER BY COUNT(classroom) DESC   limit 2 

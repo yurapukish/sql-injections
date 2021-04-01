@@ -1,0 +1,56 @@
+46) В каких классах введет занятия преподаватель "Krauze" ?
+Поля в результирующей таблице:
+name
+
+SELECT DISTINCT  name FROM  Class
+INNER JOIN  Schedule 
+ON Class.id = Schedule.class
+WHERE teacher = ( SELECT id FROM teacher 
+
+WHERE last_name ="Krauze
+
+
+47) Сколько занятий провел Krauze 30 августа 2019 г.?
+Поля в результирующей таблице:
+count
+Используйте конструкцию "as count" для агрегатной функции подсчета числа занятий. Это необходимо для корректной проверки.
+
+SELECT COUNT(*) as count FROM Schedule
+WHERE teacher = (SELECT id FROM Teacher WHERE last_name ="Krauze") AND date = "2019-08-30"
+
+
+
+48)Выведите заполненность классов в порядке убывания
+Поля в результирующей таблице:
+name
+count
+
+SELECT name, COUNT(student) as count  FROM Student_in_class
+INNER JOIN Class ON Class.id = class
+GROUP BY class 
+ORDER BY count DESC 
+
+
+
+
+49)Какой процент обучающихся учится в 10 A классе ?
+Поля в результирующей таблице:
+percent
+
+
+SELECT  
+(SELECT COUNT(student)  FROM  Student_in_class
+INNER JOIN Class ON Student_in_class.class = Class.id AND name ="10 A") / COUNT(student)  * 100
+as  percent
+FROM Student_in_class
+
+
+
+
+50)
+Какой процент обучающихся родился в 2000 году? Результат округлить до целого в меньшую сторону.
+
+SELECT 
+FLOOR((SELECT COUNT(*)  FROM Student
+WHERE YEAR(birthday) = 2000) / COUNT(*) * 100) as percent
+FROM Student
